@@ -38,4 +38,7 @@ public class GamePanel extends JPanel {
 		g2d.drawImage(bi, null, 0, 0);
 	}
 
+
+	
+
 }

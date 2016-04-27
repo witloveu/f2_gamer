@@ -20,4 +20,6 @@ public abstract class Sprite {
 	public Double getRectangle() {                               //return position
 		return new Rectangle2D.Double(x, y, width, height);
 	}
+
+	
 }
