@@ -10,15 +10,19 @@ import java.util.ArrayList;
   		frame.setSize(400, 600);
 		frame.getContentPane().setLayout(new BorderLayout());
  
- 		SpaceShip s = new SpaceShip(180, 500, 20, 20);
- 		GamePanel g = new GamePanel();
- 		g.sprites.add(s);
- 		g.updateGameUI();
-  
+ 		SpaceShip v = new SpaceShip(180, 500, 20, 20);
+ 		GamePanel gp = new GamePanel();
+ 		GameEngine engine = new GameEngine(gp, v); 
+
+ 		gp.sprites.add(v);
+ 		
+
+  		frame.addKeyListener(engine);
  		frame.getContentPane().setBackground(Color.BLACK);
- 		frame.getContentPane().add(g, BorderLayout.CENTER);
+ 		frame.add(gp);
   		frame.setVisible(true);
 
+  		engine.start();
   }
 
 
