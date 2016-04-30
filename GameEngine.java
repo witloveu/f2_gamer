@@ -5,6 +5,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import java.util.Iterator;
 
 import javax.swing.Timer;
@@ -15,8 +16,9 @@ public class GameEngine implements KeyListener{
 		
 	private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 	private SpaceShip v;	
-	
+	private int life = 3;
 	private Timer timer;
+	private boolean p;
 	
 	private long score = 0;
 	private double difficulty = 0.1;
@@ -41,6 +43,7 @@ public class GameEngine implements KeyListener{
 	
 	public void start(){
 		timer.start();
+		p = true;
 	}
 
 	private void generateEnemy(){
@@ -50,7 +53,12 @@ public class GameEngine implements KeyListener{
 	}
 	
 	
-
+	public void die(){
+		stop();
+		life--;
+		JOptionPane.showMessageDialog(null, "You are die !\n"+"Life : " + life, "Reporter", JOptionPane.INFORMATION_MESSAGE);
+		start();
+	}
 	
 	private void process(){
 		
@@ -77,18 +85,29 @@ public class GameEngine implements KeyListener{
 		for(Enemy e : enemies){
 			er = e.getRectangle();
 			if(er.intersects(vr)){
-				die();
-				
+					
+				if(life != 0)
+					die();
+				else
+					gameover();
+			return;
 			}
 		}
+	}
+
+	
+	
+	public void gameover(){
+		stop();
+		JOptionPane.showMessageDialog(null, "Game Over !\n" + "\n"+"Score : " + getScore(), "Reporter", JOptionPane.INFORMATION_MESSAGE);
+	}
+
+	public void stop(){
+		timer.stop();
+		p = false;
 		
 	}
-	
-	public void die(){
 
-		timer.stop();
-	}
-	
 	public void controlVehicle(KeyEvent e) {
 		
 		switch (e.getKeyCode()) {
