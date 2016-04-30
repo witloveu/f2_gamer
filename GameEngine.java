@@ -16,10 +16,15 @@ public class GameEngine implements KeyListener{
 		
 	private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 	private SpaceShip v;	
-	private int life = 3;
+	private int life = 3,speed = 40;
 	private Timer timer;
 	private boolean p;
-	
+	ActionListener f = new ActionListener(){
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+				process();
+			}
+	};
 	private long score = 0;
 	private double difficulty = 0.1;
 	
@@ -29,14 +34,7 @@ public class GameEngine implements KeyListener{
 		
 		gp.sprites.add(v);
 		
-		timer = new Timer(50, new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-
-				process();
-			}
-		});
+		timer = new Timer(speed,f);
 		timer.setRepeats(true);
 		
 	}
@@ -65,7 +63,8 @@ public class GameEngine implements KeyListener{
 		if(Math.random() < difficulty){
 			generateEnemy();
 		}
-		
+			
+		scoreProcess();
 		Iterator<Enemy> e_iter = enemies.iterator();
 		while(e_iter.hasNext()){
 			Enemy e = e_iter.next();
@@ -76,7 +75,11 @@ public class GameEngine implements KeyListener{
 				gp.sprites.remove(e);
 				score += 100;
 
+
 			}
+
+
+
 		}
 		gp.updateGameUI(this);	
 
@@ -94,6 +97,13 @@ public class GameEngine implements KeyListener{
 			}
 		}
 	}
+	private void scoreProcess(){
+        if( ( score % 1000 ) == 0  ){
+        	speed =  speed - 5;
+        }
+            
+       
+    }
 
 	
 	
