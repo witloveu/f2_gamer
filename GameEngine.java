@@ -18,7 +18,7 @@ public class GameEngine implements KeyListener{
 	
 	private Timer timer;
 	
-
+	private long score = 0;
 	private double difficulty = 0.1;
 	
 	public GameEngine(GamePanel gp, SpaceShip v) {
@@ -66,10 +66,11 @@ public class GameEngine implements KeyListener{
 			if(!e.isAlive()){
 				e_iter.remove();
 				gp.sprites.remove(e);
+				score += 100;
 
 			}
 		}
-		gp.updateGameUI();	
+		gp.updateGameUI(this);	
 		
 	}
 	
@@ -94,6 +95,9 @@ public class GameEngine implements KeyListener{
 	}
 
 	
+	public long getScore(){
+		return score;
+	}
 	
 	@Override
 	public void keyPressed(KeyEvent e) {
