@@ -71,6 +71,16 @@ public class GameEngine implements KeyListener{
 			}
 		}
 		gp.updateGameUI(this);	
+
+		Rectangle2D.Double vr = v.getRectangle();
+		Rectangle2D.Double er;
+		for(Enemy e : enemies){
+			er = e.getRectangle();
+			if(er.intersects(vr)){
+				die();
+				
+			}
+		}
 		
 	}
 	
